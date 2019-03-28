@@ -9,23 +9,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.HashMap;
 
 @RestController
-@RequestMapping("/data")
+//@RequestMapping("/data")
 public class DataController {
     private Logger log = LoggerFactory.getLogger(DataController.class);
 
-    public static final String SENTIMENT_URL = "http://api.bosonnlp.com/sentiment/analysis";
+    public static final String SENTIMENT_URL = "http://api.bosonnlp.com/sentiment/analysis?news";
 
-    @RequestMapping("/analy")
-    public String ss(@RequestParam String message) throws JSONException, UnirestException,
+    @PostMapping("/data/analy")
+    public HashMap<String ,Object> ss(HttpServletRequest request ,@RequestParam String message) throws JSONException, UnirestException,
             java.io.IOException {
-        log.info("message:  " + message);
+        log.info("message: " + message);
+//        Enumeration<String> paraNames = request.getParameterNames();
+//        for (Enumeration e = paraNames; e.hasMoreElements(); ) {
+//            String thisName = e.nextElement().toString();
+//            String thisValue = request.getParameter(thisName);
+//            log.info(thisName + "--------------" + thisValue);
+//
+//        }
+//        log.info("message: " + request.getParameterNames());
+
         String body = new JSONArray(new String[]{message}).toString();
-        log.info("body  :  " + body);
+//        log.info("body  :  " + body);
 //        String body = message;
         HttpResponse<JsonNode> jsonResponse = Unirest.post(SENTIMENT_URL)
                 .header("Accept", "application/json")
@@ -34,6 +45,40 @@ public class DataController {
                 .asJson();
         log.info(jsonResponse.getBody().toString());
         Unirest.shutDown();
-        return jsonResponse.getBody().toString();
+        String []strings=jsonResponse.getBody().toString().split(",");
+        strings[0]=strings[0].substring(2);
+        strings[1]=strings[1].substring(0,strings[1].length()-2);
+//        for (String s:strings)
+//        {
+//            log.info(s);
+//        }
+        Unirest.shutDown();
+        HashMap<String ,Object>sol=new HashMap<>();
+        sol.put("result",new double[]{Double.valueOf(strings[0]),Double.valueOf(strings[1])});
+        return sol;
+    }
+
+    @GetMapping("/data/anal")
+    public HashMap<String ,Object> sds(HttpServletRequest request ,@RequestParam String message) throws JSONException, UnirestException,
+            java.io.IOException {
+        log.info("message: " + message);
+        String body = new JSONArray(new String[]{message}).toString();
+        HttpResponse<JsonNode> jsonResponse = Unirest.post(SENTIMENT_URL)
+                .header("Accept", "application/json")
+                .header("X-Token", "dfRKQEfX.33618.MrvbkXnf7-6I")
+                .body(body)
+                .asJson();
+        log.info(jsonResponse.getBody().toString());
+        String []strings=jsonResponse.getBody().toString().split(",");
+        strings[0]=strings[0].substring(2);
+        strings[1]=strings[1].substring(0,strings[1].length()-2);
+//        for (String s:strings)
+//        {
+//            log.info(s);
+//        }
+        Unirest.shutDown();
+        HashMap<String ,Object>sol=new HashMap<>();
+        sol.put("result",new double[]{Double.valueOf(strings[0]),Double.valueOf(strings[1])});
+        return sol;
     }
 }

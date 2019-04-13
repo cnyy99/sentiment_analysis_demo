@@ -24,13 +24,6 @@
     <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="/static/assets/ico/favicon.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144"
-          href="/static/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114"
-          href="/static/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72"
-          href="/static/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/static/assets/ico/apple-touch-icon-57-precomposed.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300" type="text/css" />
 
     <style>
@@ -100,7 +93,12 @@
         $('#site-form').submit(function () {	//这次我们这么绑定
             var message = $("textarea[name='message']").val();
             // var title = $("input[name='title']").val();
-            console.log(message)
+            console.log(message);
+            if(message==""||message==null)
+            {
+                alert("文本不能为空！");
+                return false;
+            }
             // var errmessage = $("textarea[name='errmessage']").val();
             var data = {
                 message: message,
@@ -123,18 +121,6 @@
                 fail: function () {
                 }
             });
-            // axios.post('/data/analy', {
-            //     message:message
-            // })
-            // .then(function (response) {
-            //     typeArr=["正面情绪","负面情绪"];
-            //     dataArr=response[0];
-            //     piePicture("img",typeArr,dataArr);
-            //     console.log(response);
-            // })
-            // .catch(function (error) {
-            //     console.log(error);
-            // });
             return false;	//还是要return false, 跟上面一样的道理
         });
     });
@@ -202,51 +188,54 @@
         )
     };
 </script>
-<div class="col-md-3">
-    <div id="example-4">
-        <input type="radio" id="one" value="1" v-model="picked">
-        <label for="one">通用</label>
-        <br>
-        <input type="radio" id="two" value="2" v-model="picked">
-        <label for="two">汽车</label>
-        <br>
-        <input type="radio" id="three" value="3" v-model="picked">
-        <label for="three">厨具</label>
-        <br>
-        <input type="radio" id="four" value="4" v-model="picked">
-        <label for="four">餐饮</label>
-        <br>
-        <input type="radio" id="five" value="5" v-model="picked">
-        <label for="five">新闻</label>
-        <br>
-        <input type="radio" id="six" value="6" v-model="picked">
-        <label for="six">微博</label>
-        <br>
-
-        <span>Picked: {{ picked }}</span>
-    </div>
-    <script>
-        var app=new Vue({
-            el: '#example-4',
-            data: {
-                picked: '1'
-            }
-        })
-    </script>
+<div class="card-header row" style="text-align: center">
+    <div class="offset-md-4"></div><img src="/static/assets/ico/favicon.png" style="width: 50px;height: 50px;"><h3>文本情感分析网站demo</h3>
 </div>
-<div class="col-md-6 offset-3">
+<div class="col-md-6 offset-3" style="margin-top: 2em;">
     <form class="site-form" id="site-form">
+        <div class="form-top-left">
+            <h5>请输入要分析的文本</h5>
+        </div>
         <label>
-            <textarea class="form-control px-3 py-3" cols="30" rows="10" name="message"></textarea>
+            <textarea class="form-control px-3 py-3" cols="80" rows="5" name="message"></textarea>
         </label>
-        <input type="submit" class="btn btn-primary  px-4 py-3"
-               value="Leave Message">
+        <div class="row" style="margin-left: 0">
+            <div class="form-top-left">
+                类型：
+            </div>
+            <div id="example-4">
+                <input type="radio" id="one" value="1" v-model="picked">
+                <label for="one">通用</label>
+
+                <input type="radio" id="two" value="2" v-model="picked">
+                <label for="two">汽车</label>
+
+                <input type="radio" id="three" value="3" v-model="picked">
+                <label for="three">厨具</label>
+
+                <input type="radio" id="four" value="4" v-model="picked">
+                <label for="four">餐饮</label>
+
+                <input type="radio" id="five" value="5" v-model="picked">
+                <label for="five">新闻</label>
+
+                <input type="radio" id="six" value="6" v-model="picked">
+                <label for="six">微博</label>
+
+
+                <%--<span>Picked: {{ picked }}</span>--%>
+            </div>
+            <div class="pull-right offset-md-2  ">
+                <input type="submit" class="btn btn-primary  px-4 py-3"
+                       value="提交">
+            </div>
+        </div>
     </form>
 </div>
 
-<div class="container">
-    <div class="col-md-6 offset-3">
-        <div id="img" style="height:400px"></div>
+<div class="row container">
+    <div class="col-md-6 offset-md-4" style="background-color:rgba(255, 249, 192, 0.2); ">
+        <div id="img" style="height:350px"></div>
     </div>
 </div>
 <footer class="site-footer bg-light">
@@ -254,7 +243,7 @@
         <div class="row mb-3">
             <div class="col-md-12 text-center">
                 <p>
-                    <a href="https://github.com/Text-sentiment-analysis-bjfu" class="social-item" target="_blank"><span
+                    <a href="https://github.com/bjfunlp" class="social-item" target="_blank"><span
                             class="icon-github2"></span></a>
                     <a href="https://zh.wikipedia.org/zh-hans/%E6%96%87%E6%9C%AC%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90"
                        class="social-item" target="_blank"><span
@@ -265,16 +254,24 @@
             </div>
         </div>
         <div class="row">
-            <p class="col-12 text-center">
+            <p class="col-12 text-center" style="color: black;">
 
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear());</script>
-                - cnyy All rights reserved
+                - bjfunlp All rights reserved
 
             </p>
         </div>
     </div>
 </footer>
+<script>
+    var app=new Vue({
+        el: '#example-4',
+        data: {
+            picked: '1'
+        }
+    })
+</script>
 <script src="/static/js/vendor/popper.min.js"></script>
 <script src="/static/js/vendor/bootstrap.min.js"></script>
 <script src="/static/js/vendor/jquery.easing.1.3.js"></script>

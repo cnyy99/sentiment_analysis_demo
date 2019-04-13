@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/static/css/flexslider.css">
     <link rel="stylesheet" href="/static/fonts/icomoon/style.css">
     <script src="/static/js/vendor/jquery.min.js"></script>
-
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
@@ -103,7 +103,8 @@
             console.log(message)
             // var errmessage = $("textarea[name='errmessage']").val();
             var data = {
-                message: message
+                message: message,
+                type:app.picked
             };
             $.ajax({
                 url: '/data/analy',
@@ -201,7 +202,38 @@
         )
     };
 </script>
+<div class="col-md-3">
+    <div id="example-4">
+        <input type="radio" id="one" value="1" v-model="picked">
+        <label for="one">通用</label>
+        <br>
+        <input type="radio" id="two" value="2" v-model="picked">
+        <label for="two">汽车</label>
+        <br>
+        <input type="radio" id="three" value="3" v-model="picked">
+        <label for="three">厨具</label>
+        <br>
+        <input type="radio" id="four" value="4" v-model="picked">
+        <label for="four">餐饮</label>
+        <br>
+        <input type="radio" id="five" value="5" v-model="picked">
+        <label for="five">新闻</label>
+        <br>
+        <input type="radio" id="six" value="6" v-model="picked">
+        <label for="six">微博</label>
+        <br>
 
+        <span>Picked: {{ picked }}</span>
+    </div>
+    <script>
+        var app=new Vue({
+            el: '#example-4',
+            data: {
+                picked: '1'
+            }
+        })
+    </script>
+</div>
 <div class="col-md-6 offset-3">
     <form class="site-form" id="site-form">
         <label>

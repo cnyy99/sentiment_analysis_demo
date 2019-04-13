@@ -20,7 +20,10 @@
           integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_1012673_q1pp9wrsph.css">
-
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="/static/assets/ico/favicon.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
@@ -35,7 +38,55 @@
 <body data-spy="scroll" data-target="#pb-navbar" data-offset="200">
 
 
+<div class="container">
+    <template>
+        <div>
+            <el-radio-group v-model="radio3">
+                <el-radio-button label="上海"></el-radio-button>
+                <el-radio-button label="北京"></el-radio-button>
+                <el-radio-button label="广州"></el-radio-button>
+                <el-radio-button label="深圳"></el-radio-button>
+            </el-radio-group>
+        </div>
+        <div style="margin-top: 20px">
+            <el-radio-group v-model="radio4" size="medium">
+                <el-radio-button label="上海" ></el-radio-button>
+                <el-radio-button label="北京"></el-radio-button>
+                <el-radio-button label="广州"></el-radio-button>
+                <el-radio-button label="深圳"></el-radio-button>
+            </el-radio-group>
+        </div>
+        <div style="margin-top: 20px">
+            <el-radio-group v-model="radio5" size="small">
+                <el-radio-button label="上海"></el-radio-button>
+                <el-radio-button label="北京" disabled ></el-radio-button>
+                <el-radio-button label="广州"></el-radio-button>
+                <el-radio-button label="深圳"></el-radio-button>
+            </el-radio-group>
+        </div>
+        <div style="margin-top: 20px">
+            <el-radio-group v-model="radio6" disabled size="mini">
+                <el-radio-button label="上海"></el-radio-button>
+                <el-radio-button label="北京"></el-radio-button>
+                <el-radio-button label="广州"></el-radio-button>
+                <el-radio-button label="深圳"></el-radio-button>
+            </el-radio-group>
+        </div>
+    </template>
 
+    <script>
+        export default {
+            data () {
+                return {
+                    radio3: '上海',
+                    radio4: '上海',
+                    radio5: '上海',
+                    radio6: '上海'
+                };
+            }
+        }
+    </script>
+</div>
 
 
 

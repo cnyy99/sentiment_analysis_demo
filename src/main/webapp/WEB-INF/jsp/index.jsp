@@ -188,8 +188,8 @@
         )
     };
 </script>
-<div class="card-header row" style="text-align: center">
-    <div class="offset-md-4"></div><img src="/static/assets/ico/favicon.png" style="width: 50px;height: 50px;"><h3>文本情感分析网站demo</h3>
+<div class="card-header row" style="text-align: center;margin-right: 0">
+    <div class="offset-md-4"></div><img src="/static/assets/ico/favicon.png" style="width: 40px;height: 40px;"> &nbsp;&nbsp;&nbsp;<h3> 文本情感分析网站demo</h3>
 </div>
 <div class="col-md-6 offset-3" style="margin-top: 2em;">
     <form class="site-form" id="site-form">
@@ -234,7 +234,7 @@
 </div>
 
 <div class="row container">
-    <div class="col-md-6 offset-md-4" style="background-color:rgba(255, 249, 192, 0.2); ">
+    <div class="col-md-6 offset-md-4" style="background-color:rgba(88, 88, 88, 0.4); ">
         <div id="img" style="height:350px"></div>
     </div>
 </div>

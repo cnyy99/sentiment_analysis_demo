@@ -16,4 +16,11 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/")
+    String toindexd()
+    {
+        log.info("request for / for /index");
+        return "index";
+    }
+
 }

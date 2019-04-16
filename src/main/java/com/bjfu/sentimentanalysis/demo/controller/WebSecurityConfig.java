@@ -46,6 +46,7 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
 //        排除配置
         addInterceptor.excludePathPatterns("/error");
+        addInterceptor.excludePathPatterns("/log");
         addInterceptor.excludePathPatterns("/data/analy");
         addInterceptor.excludePathPatterns("/data/anal");
         addInterceptor.excludePathPatterns("/");
@@ -57,51 +58,52 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         addInterceptor.excludePathPatterns("/index");
 //        addInterceptor.excludePathPatterns("/register");
 //        拦截配置
-//        addInterceptor.addPathPatterns("/**");
+        addInterceptor.addPathPatterns("/**");
     }
 
     private class SecurityInterceptor extends HandlerInterceptorAdapter {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            HttpSession session = request.getSession();
-            Cookie[] cookies = request.getCookies();
-            String targetUrl = request.getRequestURI();
-            String USER_TYPE = null;
-            if (session.getAttribute(SESSION_USER_KEY) != null) {
-                return true;
-            }
-            boolean isLogined = false;
-            if (cookies == null) {
-                log.error("cookies is null");
-                String url = "/login";
-                response.sendRedirect(url);
-                return false;
-            }
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equalsIgnoreCase(SESSION_USER_KEY)) {
-                    session.setAttribute(SESSION_USER_KEY, cookie.getValue());
-                    isLogined = true;
-                    log.info("cookie: " + cookie.getName() + ": " + cookie.getValue());
-                }
-                if (cookie.getName().equalsIgnoreCase(SESSION_USERTYPE_KEY)) {
-                    session.setAttribute(SESSION_USERTYPE_KEY, cookie.getValue());
-                    isLogined = true;
-                    USER_TYPE = cookie.getValue();
-                    log.info("cookie: " + cookie.getName() + ": " + cookie.getValue());
-                }
-            }
-            log.warn(USER_TYPE);
-            log.warn(request.getRequestURI());
-
-            if (targetUrl.contains("manage") && USER_TYPE != null && USER_TYPE.equalsIgnoreCase(USER_TYPE_NORMAL)) {
-                response.sendRedirect("/404");
-                return false;
-            }
-            if (isLogined)
-                return true;
-            String url = "/login";
-            response.sendRedirect(url);
-            return false;
+//            HttpSession session = request.getSession();
+//            Cookie[] cookies = request.getCookies();
+//            String targetUrl = request.getRequestURI();
+//            String USER_TYPE = null;
+//            if (session.getAttribute(SESSION_USER_KEY) != null) {
+//                return true;
+//            }
+//            boolean isLogined = false;
+//            if (cookies == null) {
+//                log.error("cookies is null");
+//                String url = "/login";
+//                response.sendRedirect(url);
+//                return false;
+//            }
+//            for (Cookie cookie : cookies) {
+//                if (cookie.getName().equalsIgnoreCase(SESSION_USER_KEY)) {
+//                    session.setAttribute(SESSION_USER_KEY, cookie.getValue());
+//                    isLogined = true;
+//                    log.info("cookie: " + cookie.getName() + ": " + cookie.getValue());
+//                }
+//                if (cookie.getName().equalsIgnoreCase(SESSION_USERTYPE_KEY)) {
+//                    session.setAttribute(SESSION_USERTYPE_KEY, cookie.getValue());
+//                    isLogined = true;
+//                    USER_TYPE = cookie.getValue();
+//                    log.info("cookie: " + cookie.getName() + ": " + cookie.getValue());
+//                }
+//            }
+//            log.warn(USER_TYPE);
+//            log.warn(request.getRequestURI());
+//
+//            if (targetUrl.contains("manage") && USER_TYPE != null && USER_TYPE.equalsIgnoreCase(USER_TYPE_NORMAL)) {
+//                response.sendRedirect("/404");
+//                return false;
+//            }
+//            if (isLogined)
+//                return true;
+//            String url = "/login";
+//            response.sendRedirect(url);
+//            return false;
+            return true;
         }
     }
 }
